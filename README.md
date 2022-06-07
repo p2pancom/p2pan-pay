@@ -2,7 +2,7 @@
 
 p2pan-pay API는 P2Pan 에서 제공하는 코인 결제 API로 머천트가 사용자로부터 편리하게 코인 지불을 받을 수 있도록 서비스 및 정보를 제공합니다. API 호출은 표준 HTTP POST (application/json) 호출로 구현됩니다.
 
-- 머천트 웹페이지: https://mc.p2pan.com
+- 머천트 웹페이지: https://pay.p2pan.com
 <br><br>
 
 ## API 엔드포인트
