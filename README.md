@@ -63,6 +63,34 @@ X-API-Credential: API Key
 
 ## API 목록
 
+### API 상태
+
+```
+GET /system/status
+```
+<br>
+
+### 이용가능 코인 및 환율 정보
+
+```
+GET /asset/list
+```
+<br>
+
+### 머천트 정보
+
+```
+GET /account/info
+```
+<br>
+
+### 머천트 잔고
+
+```
+GET /account/balances
+```
+<br>
+
 ### 입금 주소 생성
 
 ```
