@@ -487,6 +487,16 @@ POST /payment/cancel/:id
     </tr>
   </tbody>
 </table>
+
+- 요청 예시
+
+```
+curl --request POST \
+     --url https://api.p2pan.com/v1/payment/cancel/a01549c5-e714-11ec-b492-f320cde77bfd \
+     --header 'Content-Type: application/json' \
+     --header 'X-API-Credential: Your API Key'
+```
+
 <br>
 
 ### 결제폼 정보
@@ -515,6 +525,14 @@ GET /payment/get/:id
     </tr>
   </tbody>
 </table>
+
+- 요청 예시
+
+```
+curl --request GET \
+     --url https://api.p2pan.com/v1/payment/get/a01549c5-e714-11ec-b492-f320cde77bfd
+```
+
 <br>
 
 ### 출금 생성
@@ -634,17 +652,20 @@ GET /withdraw/get/:id
 ## 이벤트 웹훅
 
 이벤트 웹훅은 결제창의 상태가 변경될 경우 지정한 웹훅 주소로 상태 정보를 전송합니다.
+
 머천트는 해당 데이터를 받아 사용자가 입금한 내역을 확인하고 내부적으로 거래를 처리할 수 있습니다.
 
 ### 웹훅 데이터 보안
 
-전송받은 웹훅 데이터가 스팸에 의한 것이 아닌 올바른 데이터 인지 확인합니다.
+전송받은 웹훅 데이터가 스팸에 의한 것이 아닌 올바른 데이터 여부를 확인합니다.
+
+모든 웹훅 요청에는 원시 데이터에 대한 `HMAC SHA256` 값이 헤더에 포함됩니다.
+
+해당 값은 `X-Webhook-Signature` 헤더로 전송됩니다.
 
 `X-Webhook-Signature: HMAC SHA256 Hash`
 
-모든 웹훅 요청에는 원시 데이터에 대한 `HMAC SHA256` 값이 포함됩니다.
-
-머천트의 `Webhook Secret Key` 를 키로 사용하여 암호화 됩니다.
+해당 서명은 머천트 페이지의 `Webhook Secret Key` 를 키를 이용하여 암호화 됩니다.
 
 머천트는 해당 헤더를 비교하여 올바르지 않을 경우 웹훅 데이터에 대한 처리를 거부해야 합니다.
 <br>
