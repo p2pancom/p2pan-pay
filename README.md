@@ -225,6 +225,8 @@ curl --request GET \
 
 ### 입금 주소 생성
 
+- 호출
+
 ```
 POST /payment/getAddress
 ```
@@ -463,6 +465,8 @@ https://pay.p2pan.com/payment/AJ3SOZV9
 
 ### 결제폼 취소
 
+- 호출
+
 ```
 POST /payment/cancel/:id
 ```
@@ -501,6 +505,8 @@ curl --request POST \
 
 ### 결제폼 정보
 
+- 호출
+
 ```
 GET /payment/get/:id
 ```
@@ -536,6 +542,8 @@ curl --request GET \
 <br>
 
 ### 출금 생성
+
+- 호출
 
 ```
 POST /withdraw/new
@@ -581,7 +589,7 @@ POST /withdraw/new
       <td>autoConfirm</td>
       <td>BOOLEAN</td>
       <td>아니요</td>
-      <td>기본값 false</td>
+      <td>출금 자동 확인 여부를 설정합니다. 값이 false 경우 머천트 페이지 인출 페이지에서 수동으로 관리자가 확인 처리 후 코인이 전송됩니다. (기본값:false)</td>
     </tr>
     <tr>
       <td>metadata</td>
@@ -594,6 +602,8 @@ POST /withdraw/new
 <br>
 
 ### 출금 취소
+
+- 호출
 
 ```
 POST /withdraw/cancel/:id
@@ -623,6 +633,8 @@ POST /withdraw/cancel/:id
 
 ### 출금 정보
 
+- 호출
+
 ```
 GET /withdraw/get/:id
 ```
@@ -647,6 +659,7 @@ GET /withdraw/get/:id
     </tr>
   </tbody>
 </table>
+
 <br>
 
 ## 이벤트 웹훅
@@ -672,7 +685,7 @@ GET /withdraw/get/:id
 
 ### 웹훅 데이터 예시
 
-모든 웹훅 요청은 `HTTP POST` 방식의 `application/json` 로 전송됩니다.
+모든 웹훅 데이턴는 `HTTP POST` 방식의 `application/json` 로 전송됩니다.
 
 ```json
 {
