@@ -46,6 +46,7 @@ X-API-Credential: API Key
 
 - `BTC`&nbsp;&nbsp;&nbsp;Bitcoin
 - `ETH`&nbsp;&nbsp;&nbsp;Ethereum
+- `TRX`&nbsp;&nbsp;&nbsp;Tron
 - `XRP`&nbsp;&nbsp;&nbsp;Ripple
 - `ETC`&nbsp;&nbsp;&nbsp;Ethereum Classic
 - `BCH`&nbsp;&nbsp;&nbsp;Bitcoin Cash
