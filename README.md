@@ -1,8 +1,8 @@
 ## 소개
 
-p2pan-pay API는 P2Pan 에서 제공하는 코인 결제 API로 머천트가 사용자로부터 편리하게 코인 지불을 받을 수 있도록 서비스 및 정보를 제공합니다. API 호출은 표준 HTTP POST (application/json) 호출로 구현됩니다.
+p2pan-pay API는 P2Pan 에서 제공하는 코인 결제 API로 머천트가 사용자로부터 편리하게 코인 지불을 받을 수 있도록 서비스 및 정보를 제공합니다.<br>API 호출은 표준 HTTP POST (application/json), HTTP GET 호출로 구현됩니다.
 
-- 머천트 웹페이지: https://pay.p2pan.com
+- 머천트 페이지: <https://pay.p2pan.com>
 <br><br>
 
 ## API 엔드포인트
@@ -16,7 +16,7 @@ https://api.p2pan.com/v1
 ### 엔드포인트에 대한 일반 정보
 
 - `GET` 엔드포인트의 경우 매개변수를 `query string` 으로 전송할 수 있습니다.
-- `POST`, `PUT` 및 `DELETE` 끝점의 경우 매개변수는 `query string` 으로 전송되거나 `content-type` 이 `application/json` 요청으로 전송될 수 있습니다.
+- `POST`, `PUT` 및 `DELETE` 엔드포인트의 경우 `content-type` 이 `application/json` 요청으로 전송될 수 있습니다.
 - 매개변수는 어떤 순서로든 보낼 수 있습니다.
 - `query string` 과 `request body` 모두에 매개변수가 전송되면 `query string` 매개변수가 사용됩니다.
 
@@ -30,7 +30,7 @@ https://api.p2pan.com/v1
 
 ### 엔드포인트 인증
 
-API 호출에는 머천트 페이지에서 발급받은 API KEY 를 요구 합니다. API KEY 는 API 엔드포인트 요청시 `X-API-Credential` 헤더로 전송합니다.
+API 호출에는 머천트 페이지에서 발급받은 API KEY 를 요구 합니다. API KEY 는 API 호출 요청시 `X-API-Credential` 헤더로 전송합니다.
 
 - HTTP Header:
 
@@ -66,30 +66,161 @@ X-API-Credential: API Key
 
 ### API 상태
 
+- 호출
+
 ```
 GET /system/status
 ```
+
+- 요청 예시
+
+```
+curl --request GET \
+     --url https://api.p2pan.com/v1/system/status \
+     --header 'X-API-Credential: Your API Key'
+```
+
+- 응답 예시
+
+```json
+{
+  "status": 0,
+  "msg": "normal",
+}
+```
+
 <br>
 
 ### 이용가능 코인 및 환율 정보
 
+- 호출
+
 ```
 GET /asset/list
 ```
+
+- 요청 예시
+
+```
+curl --request GET \
+     --url https://api.p2pan.com/v1/asset/list \
+     --header 'X-API-Credential: Your API Key'
+```
+
+- 응답 예시
+
+```json
+{
+  "data": {
+    "USDT": {
+      "rates": {
+        "KRW": "1274",
+        "USD": "1.01",
+        "EUR": "0.95"
+      },
+      "name": "테더",
+      "confirms": 3
+    },
+    "TRX": {
+      "rates": {
+        "KRW": "103",
+        "USD": "0.08",
+        "EUR": "0.08"
+      },
+      "name": "트론",
+      "confirms": 2
+    },
+    "XRP": {
+      "rates": {
+        "KRW": "504",
+        "USD": "0.40",
+        "EUR": "0.38"
+      },
+      "name": "리플",
+      "confirms": 2
+    }
+  }
+}
+
+```
+
 <br>
 
 ### 머천트 정보
 
+- 호출
+
 ```
 GET /account/info
 ```
+
+- 요청 예시
+
+```
+curl --request GET \
+     --url https://api.p2pan.com/v1/account/info \
+     --header 'X-API-Credential: Your API Key'
+```
+
+- 응답 예시
+
+```json
+{
+  "data": {
+    "merchantId": "f100bc8b-e0d7-21ec-a49d-2220cde77bfd",
+    "email": "test@p2pan.com",
+    "accountName": "",
+    "localCurrency": "KRW",
+    "businessName": "P2Pan",
+    "businessUrl": "https://www.p2pan.com",
+    "supportEmail": "support@p2pan.com",
+    "createdAt": "2022-05-01T11:50:59.000Z"
+  }
+}
+```
+
 <br>
 
 ### 머천트 잔고
 
+- 호출
+
 ```
 GET /account/balances
 ```
+
+- 요청 예시
+
+```
+curl --request GET \
+     --url https://api.p2pan.com/v1/account/balances \
+     --header 'X-API-Credential: Your API Key'
+```
+
+- 응답 예시
+
+```json
+{
+  "data": {
+    "USDT": {
+      "balance": "0.000000000000000000"
+    },
+    "TRX": {
+      "balance": "0.000000"
+    },
+    "XRP": {
+      "balance": "0.000000"
+    },
+    "ETH": {
+      "balance": "0.000000000000000000"
+    },
+    "BTC": {
+      "balance": "0.00000000"
+    }
+  }
+}
+```
+
 <br>
 
 ### 입금 주소 생성
@@ -99,6 +230,7 @@ POST /payment/getAddress
 ```
 
 - 매개변수
+
 <table>
   <thead>
     <tr>
@@ -123,15 +255,46 @@ POST /payment/getAddress
     </tr>
   </tbody>
 </table>
+
+
+- 요청 예시
+
+```
+curl --request POST \
+     --url https://api.p2pan.com/v1/payment/getAddress \
+     --header 'Content-Type: application/json' \
+     --data '
+      {
+        "id": "ad74de9e-e2cc-21ec-349d-f120cde77bfd",
+        "currency": "BTC"
+      }
+     '
+```
+
+- 응답 예시
+
+```json
+{
+  "data": {
+    "paymentId": "ad74de9e-e2cc-21ec-349d-f120cde77bfd",
+    "address": "3A1fL8pKM1YL9LqcXPTYmPAieuDB4CGTcA",
+    "currency": "BTC",
+  }
+}
+```
+
 <br>
 
 ### 결제폼 생성
+
+- 호출
 
 ```
 GET /payment/new
 ```
 
 - 매개변수
+
 <table>
   <thead>
     <tr>
@@ -187,22 +350,97 @@ GET /payment/new
   </tbody>
 </table>
 
-- 요청 본문 예시
+- 요청 예시
 
-> Content-Type: application/json
+```
+curl --request POST \
+     --url https://api.p2pan.com/v1/payment/new \
+     --header 'Content-Type: application/json' \
+     --header 'X-API-Credential: Your API Key' \
+     --data '
+      {
+        "name": "Payment Test",
+        "description": "Test Description",
+        "pricingType": "fixed",
+        "localPrice": {
+          "amount": "1000000",
+          "currency": "KRW"
+        },
+        "metadata": {
+          "user_id": "2293382",
+          "order_id": "339128"
+        }
+      }
+     '
+```
+
+- 응답 예시
 
 ```json
 {
-  "name": "Payment Test",
-  "description": "Test Description",
-  "pricingType": "fixed",
-  "localPrice": {
-    "amount": "1000000",
-    "currency": "KRW"
-  },
-  "metadata": {
-    "user_id": "2293382",
-    "order_id": "339128"
+  "data": {
+    "id": "a01549c5-e714-11ec-b492-f320cde77bfd",
+    "code": "A119A12V",
+    "name": "Payment Test",
+    "description": "Test Description",
+    "brandColor": "#122332",
+    "brandLogoUrl": "",
+    "redirectUrl": null,
+    "cancelUrl": null,
+    "hostedUrl": "https://pay.p2pan.com/payment/A119A12V",
+    "createdAt": "2022-06-01T10:20:58Z",
+    "expiresAt": "2022-06-01T11:20:58Z",
+    "pricingType": "fixed",
+    "pricing": {
+      "BCH": "4.412751",
+      "BTC": "0.02593876",
+      "DAI": "784.93",
+      "ETC": "37.131930",
+      "ETH": "0.438665",
+      "LTC": "12.692288",
+      "TRX": "9708.737864",
+      "XRP": "1984.126984",
+      "ZEC": "8.662659",
+      "DASH": "13.516436",
+      "DOGE": "9803.921569",
+      "USDC": "784.93",
+      "USDT": "784.93"
+    },
+    "dueAmount": {
+      "BCH": "4.412751",
+      "BTC": "0.02593876",
+      "DAI": "784.93",
+      "ETC": "37.131930",
+      "ETH": "0.438665",
+      "LTC": "12.692288",
+      "TRX": "9708.737864",
+      "XRP": "1984.126984",
+      "ZEC": "8.662659",
+      "DASH": "13.516436",
+      "DOGE": "9803.921569",
+      "USDC": "784.93",
+      "USDT": "784.93"
+    },
+    "localAmount": "1000000",
+    "localCurrency": "KRW",
+    "payCurrency": null,
+    "exchangeRates": {
+      "BCH": "226616",
+      "BTC": "38552348",
+      "DAI": "1274",
+      "ETC": "26931",
+      "ETH": "2279643",
+      "LTC": "78788",
+      "TRX": "103",
+      "XRP": "504",
+      "ZEC": "115438",
+      "DASH": "73984",
+      "DOGE": "102",
+      "USDC": "1274",
+      "USDT": "1274"
+    },
+    "timeline": [],
+    "status": "NEW"
   }
 }
 ```
@@ -220,6 +458,7 @@ https://pay.p2pan.com/payment/:id
 ```
 https://pay.p2pan.com/payment/AJ3SOZV9
 ```
+
 <br>
 
 ### 결제폼 취소
@@ -229,6 +468,7 @@ POST /payment/cancel/:id
 ```
 
 - 경로 매개변수
+
 <table>
   <thead>
     <tr>
@@ -256,6 +496,7 @@ GET /payment/get/:id
 ```
 
 - 경로 매개변수
+
 <table>
   <thead>
     <tr>
@@ -276,7 +517,6 @@ GET /payment/get/:id
 </table>
 <br>
 
-
 ### 출금 생성
 
 ```
@@ -284,6 +524,7 @@ POST /withdraw/new
 ```
 
 - 매개변수
+
 <table>
   <thead>
     <tr>
@@ -341,6 +582,7 @@ POST /withdraw/cancel/:id
 ```
 
 - 경로 매개변수
+
 <table>
   <thead>
     <tr>
@@ -368,6 +610,7 @@ GET /withdraw/get/:id
 ```
 
 - 경로 매개변수
+
 <table>
   <thead>
     <tr>
@@ -436,6 +679,7 @@ GET /withdraw/get/:id
 ```
 
 - 웹훅 헤더 필드
+
 <table>
   <thead>
     <tr>
@@ -469,6 +713,7 @@ GET /withdraw/get/:id
 </table>
 
 - 웹훅 데이터 필드
+
 <table>
   <thead>
     <tr>
