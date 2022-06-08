@@ -59,7 +59,6 @@ X-API-Credential: API Key
 - `USDT`&nbsp;Tether
 - `USDC`&nbsp;USD Coin
 - `DAI`&nbsp;&nbsp;&nbsp;Dai
-
 <br>
 
 ## API 목록
@@ -376,6 +375,7 @@ GET /withdraw/get/:id
 머천트의 `Webhook Secret Key` 를 키로 사용하여 암호화 됩니다.
 
 머천트는 해당 헤더를 비교하여 올바르지 않을 경우 웹훅 데이터에 대한 처리를 거부해야 합니다.
+<br>
 
 ### 웹훅 데이터 예시
 
