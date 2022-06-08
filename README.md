@@ -247,13 +247,13 @@ POST /payment/getAddress
       <td>id</td>
       <td>STRING</td>
       <td>예</td>
-      <td>결제ID 또는 결제CODE</td>
+      <td>결제창ID 또는 결제창CODE</td>
     </tr>
     <tr>
       <td>currency</td>
       <td>STRING</td>
       <td>예</td>
-      <td></td>
+      <td>암호화폐ID (예시: BTC, ETH)</td>
     </tr>
   </tbody>
 </table>
@@ -287,7 +287,7 @@ curl --request POST \
 
 <br>
 
-### 결제폼 생성
+### 결제창 생성
 
 - 호출
 
@@ -311,13 +311,13 @@ GET /payment/new
       <td>name</td>
       <td>STRING</td>
       <td>예</td>
-      <td></td>
+      <td>결제창 이름</td>
     </tr>
     <tr>
       <td>description</td>
       <td>STRING</td>
       <td>예</td>
-      <td></td>
+      <td>결제창 설명</td>
     </tr>
     <tr>
       <td>pricingType</td>
@@ -329,25 +329,25 @@ GET /payment/new
       <td>localPrice</td>
       <td>OBJECT</td>
       <td>예</td>
-      <td>{"amount":"", "currency":""}</td>
+      <td>amount:결제받을 금액<br>currency:결제받을 법정통화 (예시: USD,EUR,KRW)</td>
     </tr>
     <tr>
       <td>redirectUrl</td>
       <td>STRING</td>
       <td>아니요</td>
-      <td></td>
+      <td>결제 완료 후 리다이렉션 될 페이지 URL</td>
     </tr>
     <tr>
       <td>cancelUrl</td>
       <td>STRING</td>
       <td>아니요</td>
-      <td></td>
+      <td>결제 취소 후 리다이렉션 될 페이지 URL</td>
     </tr>
     <tr>
       <td>metadata</td>
       <td>OBJECT</td>
       <td>아니요</td>
-      <td></td>
+      <td>참조할 커스텀 데이터 (웹훅 전송시 해당 값이 전송됩니다.)</td>
     </tr>
   </tbody>
 </table>
@@ -447,7 +447,7 @@ curl --request POST \
 }
 ```
 
-- 결제폼 생성후 웹 결제 페이지를 사용자에게 제공하고 지불을 받을 수 있습니다.
+- 결제창 생성후 웹 결제 페이지를 사용자에게 제공하고 지불을 받을 수 있습니다.
 
 ```
 https://pay.p2pan.com/payment/:id
@@ -463,7 +463,7 @@ https://pay.p2pan.com/payment/AJ3SOZV9
 
 <br>
 
-### 결제폼 취소
+### 결제창 취소
 
 - 호출
 
@@ -487,7 +487,7 @@ POST /payment/cancel/:id
       <td>id</td>
       <td>STRING</td>
       <td>예</td>
-      <td>결제ID 또는 결제CODE</td>
+      <td>결제창ID 또는 결제창CODE</td>
     </tr>
   </tbody>
 </table>
@@ -503,7 +503,7 @@ curl --request POST \
 
 <br>
 
-### 결제폼 정보
+### 결제창 정보
 
 - 호출
 
@@ -527,7 +527,7 @@ GET /payment/get/:id
       <td>id</td>
       <td>STRING</td>
       <td>예</td>
-      <td>결제ID 또는 결제CODE</td>
+      <td>결제창ID 또는 결제창CODE</td>
     </tr>
   </tbody>
 </table>
@@ -565,25 +565,25 @@ POST /withdraw/new
       <td>currency</td>
       <td>STRING</td>
       <td>예</td>
-      <td></td>
+      <td>출금할 암호화폐ID (예시: BTC, ETH)</td>
     </tr>
     <tr>
       <td>amount</td>
       <td>STRING</td>
       <td>예</td>
-      <td></td>
+      <td>출금할 금액</td>
     </tr>
     <tr>
       <td>address</td>
       <td>STRING</td>
       <td>예</td>
-      <td></td>
+      <td>받을 지갑주소</td>
     </tr>
     <tr>
       <td>addressTag</td>
       <td>STRING</td>
       <td>아니요</td>
-      <td></td>
+      <td>받을 지갑주소 태그</td>
     </tr>
     <tr>
       <td>autoConfirm</td>
@@ -595,7 +595,7 @@ POST /withdraw/new
       <td>metadata</td>
       <td>OBJECT</td>
       <td>아니요</td>
-      <td></td>
+      <td>사용자 커스텀 데이터</td>
     </tr>
   </tbody>
 </table>
@@ -625,7 +625,7 @@ POST /withdraw/cancel/:id
       <td>id</td>
       <td>STRING</td>
       <td>예</td>
-      <td>출금 ID</td>
+      <td>출금ID</td>
     </tr>
   </tbody>
 </table>
@@ -655,7 +655,7 @@ GET /withdraw/get/:id
       <td>id</td>
       <td>STRING</td>
       <td>예</td>
-      <td>출금 ID</td>
+      <td>출금ID</td>
     </tr>
   </tbody>
 </table>
@@ -726,17 +726,17 @@ GET /withdraw/get/:id
     <tr>
       <td>id</td>
       <td>STRING</td>
-      <td>웹훅 ID</td>
+      <td>웹훅ID</td>
     </tr>
     <tr>
       <td>resource</td>
       <td>STRING</td>
-      <td>event</td>
+      <td>event: 웹훅 이벤트</td>
     </tr>
     <tr>
       <td>type</td>
       <td>STRING</td>
-      <td>payment:created<br>payment:pending<br>payment:confirmed<br>payment:failed</td>
+      <td>payment:created: 신규 결제창 생성시<br>payment:pending: 금액이 입금되었을시<br>payment:confirmed: 금액 입금이 확인되어 결제 완료시<br>payment:failed: 결제 실패 또는 취소시</td>
     </tr>
     <tr>
       <td>createdAt</td>
@@ -770,17 +770,17 @@ GET /withdraw/get/:id
     <tr>
       <td>name</td>
       <td>STRING</td>
-      <td>페이폼 이름</td>
+      <td>결제창 이름</td>
     </tr>
     <tr>
       <td>description</td>
       <td>STRING</td>
-      <td>페이폼 설명</td>
+      <td>결제창 설명</td>
     </tr>
     <tr>
       <td>status</td>
       <td>STRING</td>
-      <td>페이폼 상태</td>
+      <td>결제창 상태</td>
     </tr>
     <tr>
       <td>pricing</td>
@@ -800,12 +800,12 @@ GET /withdraw/get/:id
     <tr>
       <td>createdAt</td>
       <td>STRING</td>
-      <td>페이폼 생성시간</td>
+      <td>결제창 생성시간</td>
     </tr>
     <tr>
       <td>expiresAt</td>
       <td>STRING</td>
-      <td>페이폼 만료시간</td>
+      <td>결제창 만료시간</td>
     </tr>
     <tr>
       <td>localAmount</td>
@@ -815,7 +815,7 @@ GET /withdraw/get/:id
     <tr>
       <td>localCurrency</td>
       <td>STRING</td>
-      <td>결제 통화</td>
+      <td>결제 금액의 통화</td>
     </tr>
     <tr>
       <td>payCurrency</td>
