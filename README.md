@@ -95,6 +95,7 @@ POST /payment/getAddress
     </tr>
   </tbody>
 </table>
+<br>
 
 ### 결제폼 생성
 
@@ -191,6 +192,7 @@ https://pay.p2pan.com/payment/:id
 ```
 https://pay.p2pan.com/payment/AJ3SOZV9
 ```
+<br>
 
 ### 결제폼 취소
 
@@ -217,6 +219,7 @@ POST /payment/cancel/:id
     </tr>
   </tbody>
 </table>
+<br>
 
 ### 결제폼 정보
 
@@ -243,7 +246,118 @@ GET /payment/get/:id
     </tr>
   </tbody>
 </table>
+<br>
 
+
+### 출금 생성
+
+```
+POST /withdraw/new
+```
+
+- 매개변수
+<table>
+  <thead>
+    <tr>
+      <td>매개변수 명</td>
+      <td>매개변수 타입</td>
+      <td>필수값</td>
+      <td>설명</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>currency</td>
+      <td>STRING</td>
+      <td>예</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>amount</td>
+      <td>STRING</td>
+      <td>예</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>address</td>
+      <td>STRING</td>
+      <td>예</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>addressTag</td>
+      <td>STRING</td>
+      <td>아니요</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>autoConfirm</td>
+      <td>BOOLEAN</td>
+      <td>아니요</td>
+      <td>기본값 false</td>
+    </tr>
+    <tr>
+      <td>metadata</td>
+      <td>OBJECT</td>
+      <td>아니요</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+### 출금 취소
+
+```
+POST /withdraw/cancel/:id
+```
+
+- 경로 매개변수
+<table>
+  <thead>
+    <tr>
+      <td>매개변수 명</td>
+      <td>매개변수 타입</td>
+      <td>필수값</td>
+      <td>설명</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>STRING</td>
+      <td>예</td>
+      <td>출금 ID</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+### 출금 정보
+
+```
+GET /withdraw/get/:id
+```
+
+- 경로 매개변수
+<table>
+  <thead>
+    <tr>
+      <td>매개변수 명</td>
+      <td>매개변수 타입</td>
+      <td>필수값</td>
+      <td>설명</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>STRING</td>
+      <td>예</td>
+      <td>출금 ID</td>
+    </tr>
+  </tbody>
+</table>
 <br>
 
 ## 이벤트 웹훅
