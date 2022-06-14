@@ -228,10 +228,10 @@ curl --request GET \
 - 호출
 
 ```
-POST /payment/getAddress
+GET /payment/getAddress/:currency/:id
 ```
 
-- 매개변수
+- 경로 매개변수
 
 <table>
   <thead>
@@ -262,15 +262,8 @@ POST /payment/getAddress
 - 요청 예시
 
 ```
-curl --request POST \
-     --url https://api.p2pan.com/v1/payment/getAddress \
-     --header 'Content-Type: application/json' \
-     --data '
-      {
-        "id": "ad74de9e-e2cc-21ec-349d-f120cde77bfd",
-        "currency": "BTC"
-      }
-     '
+curl --request GET \
+     --url https://api.p2pan.com/v1/payment/getAddress/BTC/ad74de9e-e2cc-21ec-349d-f120cde77bfd
 ```
 
 - 응답 예시
@@ -292,7 +285,7 @@ curl --request POST \
 - 호출
 
 ```
-GET /payment/new
+POST /payment/new
 ```
 
 - 매개변수
@@ -385,10 +378,6 @@ curl --request POST \
     "code": "A119A12V",
     "name": "Payment Test",
     "description": "Test Description",
-    "brandColor": "#122332",
-    "brandLogoUrl": "",
-    "redirectUrl": null,
-    "cancelUrl": null,
     "hostedUrl": "https://pay.p2pan.com/payment/A119A12V",
     "createdAt": "2022-06-01T10:20:58Z",
     "expiresAt": "2022-06-01T11:20:58Z",
@@ -408,21 +397,10 @@ curl --request POST \
       "USDC": "784.93",
       "USDT": "784.93"
     },
-    "dueAmount": {
-      "BCH": "4.412751",
-      "BTC": "0.02593876",
-      "DAI": "784.93",
-      "ETC": "37.131930",
-      "ETH": "0.438665",
-      "LTC": "12.692288",
-      "TRX": "9708.737864",
-      "XRP": "1984.126984",
-      "ZEC": "8.662659",
-      "DASH": "13.516436",
-      "DOGE": "9803.921569",
-      "USDC": "784.93",
-      "USDT": "784.93"
-    },
+    "payCurrency": "BTC",
+    "payAmount": "0",
+    "payPendingAmount": "0",
+    "dueAmount": "0",
     "localAmount": "1000000",
     "localCurrency": "KRW",
     "payCurrency": null,
@@ -442,7 +420,8 @@ curl --request POST \
       "USDT": "1274"
     },
     "timeline": [],
-    "status": "NEW"
+    "status": "NEW",
+    "expireTimeLeft": 0
   }
 }
 ```
@@ -701,13 +680,13 @@ GET /withdraw/get/:id
     "status": "NEW",
     "pricingType": "fixed",
     "pricing": {},
-    "incoming": {},
     "metadata": {},
     "createdAt": "2022-05-23T18:57:45.000Z",
     "expiresAt": "2022-05-23T19:57:45.000Z",
     "localAmount": "10000.000000000000000000000000",
     "localCurrency": "KRW",
-    "payCurrency": "ETH"
+    "payCurrency": "ETH",
+    "payAmount": "0.000000"
   }
 }
 ```
@@ -820,7 +799,12 @@ GET /withdraw/get/:id
     <tr>
       <td>payCurrency</td>
       <td>STRING</td>
-      <td>결제한 코인</td>
+      <td>결제한 통화 (코인)</td>
+    </tr>
+    <tr>
+      <td>payAmount</td>
+      <td>STRING</td>
+      <td>결제한 금액 (코인)</td>
     </tr>
     <tr>
       <td>pricingType</td>
